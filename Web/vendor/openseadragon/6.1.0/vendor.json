@@ -1,0 +1,9 @@
+{
+  "name": "OpenSeadragon",
+  "version": "6.1.0",
+  "license": "BSD-3-Clause",
+  "releaseUrl": "https://github.com/openseadragon/openseadragon/releases/download/v6.1.0/openseadragon-bin-6.1.0.zip",
+  "runtimeFile": "openseadragon.min.js",
+  "purpose": "Pinned visual preview engine for Infrastructure Health & Benchmark only",
+  "releaseSha256": "acfa8c00ed93731d2a7dd02a0466a810d15adf4423189563f22e22f574b3ef77"
+}

@@ -1,0 +1,5 @@
+# Normalize text in Git and in every checkout, regardless of core.autocrlf.
+* text=auto eol=lf
+
+# Keep synthetic image bytes unchanged.
+*.png binary

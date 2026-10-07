@@ -1,0 +1,39 @@
+{
+  "default": "en-US",
+  "fallback": "en-US",
+  "systemLanguageDetection": false,
+  "locales": [
+    {
+      "code": "en-US",
+      "label": "English (US)"
+    },
+    {
+      "code": "de-DE",
+      "label": "Deutsch"
+    },
+    {
+      "code": "es-ES",
+      "label": "Español"
+    },
+    {
+      "code": "fr-FR",
+      "label": "Français"
+    },
+    {
+      "code": "it-IT",
+      "label": "Italiano"
+    },
+    {
+      "code": "nl-NL",
+      "label": "Nederlands"
+    },
+    {
+      "code": "pl-PL",
+      "label": "Polski"
+    },
+    {
+      "code": "sv-SE",
+      "label": "Svenska"
+    }
+  ]
+}

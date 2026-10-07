@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Infrastructure Health &amp; Benchmark</title>
+<link href="css/infrastructure-health.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="topbar">
+<div class="header-copy">
+<div class="eyebrow">INDEPENDENT DIAGNOSTICS</div>
+<h1 class="tooltip-help" data-i18n="app.title" data-i18n-tooltip="tooltip.app.title">Infrastructure Health &amp; Benchmark</h1>
+<p class="tooltip-help" data-i18n="app.subtitle" data-i18n-tooltip="tooltip.app.subtitle">End-to-end visibility from this viewing station through IIS to image storage.</p>
+</div>
+<div class="header-tools">
+<div class="language-control">
+<label class="tooltip-help" data-i18n="language.label" data-i18n-tooltip="tooltip.language" for="languageSelect">Language:</label>
+<select aria-label="Select display language" data-i18n-aria="language.aria" data-i18n-tooltip="tooltip.language" id="languageSelect">
+<option value="en-US">English (US)</option>
+</select>
+</div>
+<div class="header-actions">
+<button data-i18n="button.quick" data-i18n-tooltip="tooltip.quick" id="quickBtn">Run Quick Test</button>
+<button class="primary" data-i18n="button.full" data-i18n-tooltip="tooltip.full" id="fullBtn">Run Full Benchmark</button>
+<button data-i18n="button.export" data-i18n-tooltip="tooltip.export" id="exportBtn">Export JSON</button>
+</div>
+</div>
+</header>
+<main>
+<section class="workload-panel panel">
+<div class="workload-copy">
+<div class="section-title tooltip-help" data-i18n="workload.title" data-i18n-tooltip="tooltip.workload">Full Benchmark workload</div>
+<p data-i18n="workload.subtitle">Quick Test always uses the small synthetic DZI dataset. Full Benchmark uses the selected real Simulation Mode reference workload.</p>
+</div>
+<div class="workload-control">
+<label class="tooltip-help" data-i18n="workload.label" data-i18n-tooltip="tooltip.workload.select" for="workloadSelect">Template:</label>
+<select id="workloadSelect" data-i18n-tooltip="tooltip.workload.select"><option value="" data-i18n="workload.loading">Loading reference templates...</option></select>
+</div>
+<div class="workload-detail">
+<strong id="workloadDescription" data-i18n="workload.loading">Loading reference templates...</strong>
+<small id="workloadMeta">--</small>
+</div>
+</section>
+<section class="hero-grid">
+<article class="score-card">
+<div class="label tooltip-help" data-i18n="overall.title" data-i18n-tooltip="tooltip.overall.score">Overall Application Score</div>
+<div class="score" data-i18n-tooltip="tooltip.overall.score" id="overallScore">--</div>
+<div class="pill pending" data-i18n="overall.waiting" data-i18n-tooltip="tooltip.overall.status" id="overallLabel">WAITING FOR DATA</div>
+<div class="bottleneck" data-i18n="overall.runToIdentify" data-i18n-tooltip="tooltip.overall.bottleneck" id="bottleneck">Run a benchmark to identify the limiting segment.</div>
+</article>
+<article class="topology-card">
+<div class="section-title tooltip-help" data-i18n="topology.title" data-i18n-tooltip="tooltip.topology">Current topology</div>
+<div class="topology">
+<div class="node" data-i18n-tooltip="tooltip.topology.client"><span class="tooltip-help" data-i18n="topology.client" data-i18n-tooltip="tooltip.topology.client">This client</span><small data-i18n="topology.clientDefault" id="clientName">Windows / Chromium client</small></div>
+<div class="link" data-i18n-tooltip="tooltip.topology.clientLink"><span data-i18n="topology.httpPending" data-i18n-tooltip="tooltip.topology.clientLink" id="clientLinkMetric">HTTP benchmark pending</span></div>
+<div class="node" data-i18n-tooltip="tooltip.topology.server"><span data-i18n="topology.serverDefault" data-i18n-tooltip="tooltip.topology.server" id="serverName">Application IIS</span><small data-i18n="topology.serverLoading" id="serverState">Loading server status...</small></div>
+<div class="link" data-i18n-tooltip="tooltip.topology.storageLink"><span data-i18n="topology.smbPending" data-i18n-tooltip="tooltip.topology.storageLink" id="storageLinkMetric">SMB/UNC benchmark pending</span></div>
+<div class="node" data-i18n-tooltip="tooltip.topology.storage"><span class="tooltip-help" data-i18n="topology.storage" data-i18n-tooltip="tooltip.topology.storage">Image Storage</span><small data-i18n="topology.storageLoading" data-i18n-tooltip="tooltip.topology.storagePath" id="storagePath">Loading configured path...</small></div>
+</div>
+</article>
+</section>
+<section class="metrics-grid">
+<article class="metric-card">
+<div class="section-title tooltip-help" data-i18n="metrics.clientIis" data-i18n-tooltip="tooltip.clientIis">Client -&gt; IIS</div>
+<div class="notice hidden" data-i18n="metrics.loopbackNotice" data-i18n-tooltip="tooltip.loopback" id="loopbackNotice">LOCAL LOOPBACK TEST - physical client network path is bypassed.</div>
+<div class="metric-row" data-i18n-tooltip="tooltip.ttfb"><span class="tooltip-help" data-i18n="metrics.ttfb" data-i18n-tooltip="tooltip.ttfb">TTFB</span><strong id="ttfb">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.throughput"><span class="tooltip-help" data-i18n="metrics.throughput" data-i18n-tooltip="tooltip.throughput">Throughput</span><strong id="throughput">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.parallelThroughput"><span class="tooltip-help" data-i18n="metrics.parallelThroughput" data-i18n-tooltip="tooltip.parallelThroughput">Parallel throughput</span><strong id="parallelThroughput">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.networkScore"><span class="tooltip-help" data-i18n="metrics.score" data-i18n-tooltip="tooltip.networkScore">Score</span><strong id="networkScore">--</strong></div>
+</article>
+<article class="metric-card">
+<div class="section-title tooltip-help" data-i18n="metrics.iisServer" data-i18n-tooltip="tooltip.iisServer">Application IIS Server</div>
+<div class="metric-row" data-i18n-tooltip="tooltip.iisState"><span class="tooltip-help" data-i18n="metrics.iis" data-i18n-tooltip="tooltip.iisState">IIS</span><strong id="iisState">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.cpu"><span class="tooltip-help" data-i18n="metrics.cpu" data-i18n-tooltip="tooltip.cpu">CPU</span><strong id="cpu">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.memory"><span class="tooltip-help" data-i18n="metrics.memory" data-i18n-tooltip="tooltip.memory">Memory</span><strong id="memory">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.nic"><span class="tooltip-help" data-i18n="metrics.nic" data-i18n-tooltip="tooltip.nic">NIC</span><strong id="nic">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.healthTaskContext"><span class="tooltip-help" data-i18n="metrics.healthTaskContext" data-i18n-tooltip="tooltip.healthTaskContext">Health task context</span><strong id="runAs">--</strong></div>
+</article>
+<article class="metric-card">
+<div class="section-title tooltip-help" data-i18n="metrics.iisStorage" data-i18n-tooltip="tooltip.iisStorage">IIS -&gt; Storage</div>
+<div class="metric-row" data-i18n-tooltip="tooltip.availability"><span class="tooltip-help" data-i18n="metrics.availability" data-i18n-tooltip="tooltip.availability">Availability</span><strong id="storageAvailability">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.directoryLatency"><span class="tooltip-help" data-i18n="metrics.directoryLatency" data-i18n-tooltip="tooltip.directoryLatency">Directory latency</span><strong id="directoryLatency">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.fileOpenLatency"><span class="tooltip-help" data-i18n="metrics.fileOpenLatency" data-i18n-tooltip="tooltip.fileOpenLatency">File open latency</span><strong id="openLatency">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.quickSampleRead"><span class="tooltip-help" data-i18n="metrics.quickSampleRead" data-i18n-tooltip="tooltip.quickSampleRead" id="storageReadLabel">Quick sample read (info)</span><strong id="storageRead">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.smbDialect"><span class="tooltip-help" data-i18n="metrics.smbDialect" data-i18n-tooltip="tooltip.smbDialect">SMB dialect</span><strong id="smbDialect">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.storageScore"><span class="tooltip-help" data-i18n="metrics.score" data-i18n-tooltip="tooltip.storageScore">Score</span><strong id="storageScore">--</strong></div>
+<div class="inline-error hidden" id="storageError"></div>
+</article>
+<article class="metric-card">
+<div class="section-title tooltip-help" data-i18n="metrics.imageDelivery" data-i18n-tooltip="tooltip.imageDelivery">Image Delivery</div>
+<div class="metric-row" data-i18n-tooltip="tooltip.tileP50"><span class="tooltip-help" data-i18n="metrics.tileP50" data-i18n-tooltip="tooltip.tileP50" id="latencyP50Label">Tile P50</span><strong id="tileP50">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.tileP95"><span class="tooltip-help" data-i18n="metrics.tileP95" data-i18n-tooltip="tooltip.tileP95" id="latencyP95Label">Tile P95</span><strong id="tileP95">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.tileFailures"><span class="tooltip-help" data-i18n="metrics.tileFailures" data-i18n-tooltip="tooltip.tileFailures" id="failuresLabel">Tile failures</span><strong id="tileFailures">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.viewportLoad"><span class="tooltip-help" data-i18n="metrics.viewportLoad" data-i18n-tooltip="tooltip.viewportLoad" id="loadLabel">Viewport load</span><strong id="viewerLoad">--</strong></div>
+<div class="metric-row" data-i18n-tooltip="tooltip.imageScore"><span class="tooltip-help" data-i18n="metrics.score" data-i18n-tooltip="tooltip.imageScore">Score</span><strong id="imageScore">--</strong></div>
+</article>
+</section>
+<section class="configuration-panel panel">
+<div class="configuration-header">
+<div>
+<div class="section-title tooltip-help" data-i18n="config.title" data-i18n-tooltip="tooltip.config">Application Configuration Health</div>
+<p class="tooltip-help" data-i18n="config.subtitle" data-i18n-tooltip="tooltip.config">Cross-check of the image path used by the Broker registry, both ODBC system DSNs, SQL, and IIS.</p>
+</div>
+<div class="pill pending" data-i18n="config.loading" data-i18n-tooltip="tooltip.config.status" id="configurationLabel">LOADING</div>
+</div>
+<div class="configuration-grid">
+<div class="config-source" data-i18n-tooltip="tooltip.config.registry">
+<span class="source-title tooltip-help" data-i18n="config.registry" data-i18n-tooltip="tooltip.config.registry">Broker Registry</span>
+<strong id="registryPath">--</strong>
+<small id="registryStatus">Loading...</small>
+</div>
+<div class="config-source" data-i18n-tooltip="tooltip.config.sql64">
+<span class="source-title tooltip-help" data-i18n="config.sql64" data-i18n-tooltip="tooltip.config.sql64">SQL via 64-bit DSN</span>
+<strong id="sql64Path">--</strong>
+<small id="sql64Status">Loading...</small>
+</div>
+<div class="config-source" data-i18n-tooltip="tooltip.config.sql32">
+<span class="source-title tooltip-help" data-i18n="config.sql32" data-i18n-tooltip="tooltip.config.sql32">SQL via 32-bit DSN</span>
+<strong id="sql32Path">--</strong>
+<small id="sql32Status">Loading...</small>
+</div>
+<div class="config-source" data-i18n-tooltip="tooltip.config.iis">
+<span class="source-title tooltip-help" data-i18n="config.iisImages" data-i18n-tooltip="tooltip.config.iis">IIS /App/images</span>
+<strong id="iisImagePath">--</strong>
+<small id="iisImageStatus">Loading...</small>
+</div>
+</div>
+<div class="configuration-message" data-i18n="config.waiting" data-i18n-tooltip="tooltip.config.message" id="configurationMessage">Waiting for configuration diagnostics...</div>
+<div class="config-details">
+<span data-i18n-tooltip="tooltip.config.details" id="dsn64Detail">64-bit DSN: --</span>
+<span data-i18n-tooltip="tooltip.config.details" id="dsn32Detail">32-bit DSN: --</span>
+<span data-i18n-tooltip="tooltip.config.details" id="dziDetail">Application DZI framework: --</span>
+<span data-i18n-tooltip="tooltip.config.details" id="dziComponentsDetail">DZI components: --</span>
+<span data-i18n-tooltip="tooltip.config.details" id="previewDetail">Health preview engine: --</span>
+</div>
+</section>
+<section class="detail-grid">
+<article class="panel">
+<div class="section-title tooltip-help" data-i18n="preview.title" data-i18n-tooltip="tooltip.preview">Synthetic Confocal / DZI test</div>
+<div class="viewer" id="viewer"><div class="viewer-placeholder" data-i18n="preview.placeholder">Bundled OpenSeadragon preview will appear here when the health preview engine is available.</div></div>
+<p class="muted tooltip-help" data-i18n="preview.note.rawIndependent" data-i18n-tooltip="tooltip.preview.note" id="viewerNote">The raw tile benchmark remains independent from both the Application DZI framework and the bundled preview engine.</p>
+</article>
+<article class="panel">
+<div class="section-title tooltip-help" data-i18n="log.title" data-i18n-tooltip="tooltip.logEntries">Diagnostic log</div>
+<div class="run-status" data-i18n="status.loadingServer" data-i18n-tooltip="tooltip.runStatus" id="runStatus">Loading server health...</div>
+<pre class="log" id="log"></pre>
+<div class="footer-row">
+<span data-i18n-tooltip="tooltip.timestamp" id="timestamp">Server health timestamp: --</span>
+<button class="small" data-i18n="button.refresh" data-i18n-tooltip="tooltip.refresh" id="refreshBtn">Refresh server health</button>
+</div>
+</article>
+</section>
+</main>
+<footer>
+<span data-i18n="footer.product" data-i18n-tooltip="tooltip.footerProduct">Application End-to-End Health &amp; Performance Diagnostics 0.1.8</span>
+<span data-i18n="footer.disclaimer" data-i18n-tooltip="tooltip.footerDisclaimer">Measurements are diagnostic indicators, not contractual network certification.</span>
+</footer>
+<div aria-hidden="true" class="vlh-tooltip hidden" id="vlhTooltip" role="tooltip"></div><script src="vendor/openseadragon/6.1.0/openseadragon.min.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/benchmark.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

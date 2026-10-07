@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "defaultTemplate": "xy-mosaic",
+  "templates": [
+    {
+      "id": "single-images",
+      "kind": "file-sequence",
+      "labelKey": "workload.singleImages.label",
+      "descriptionKey": "workload.singleImages.description",
+      "profiles": ["SingleField", "All"],
+      "requestCount": 8,
+      "concurrency": 2,
+      "accessPattern": "forward-jump"
+    },
+    {
+      "id": "z-stack",
+      "kind": "file-sequence",
+      "labelKey": "workload.zStack.label",
+      "descriptionKey": "workload.zStack.description",
+      "profiles": ["SingleField", "All"],
+      "requestCount": 48,
+      "concurrency": 4,
+      "accessPattern": "stack-scroll"
+    },
+    {
+      "id": "xy-mosaic",
+      "kind": "dzi-navigation",
+      "labelKey": "workload.xyMosaic.label",
+      "descriptionKey": "workload.xyMosaic.description",
+      "profiles": ["All"],
+      "steps": [
+        { "id": "overview", "centerX": 0.50, "centerY": 0.50, "imageZoom": 0.05 },
+        { "id": "medium",   "centerX": 0.50, "centerY": 0.50, "imageZoom": 0.20 },
+        { "id": "highA",    "centerX": 0.32, "centerY": 0.34, "imageZoom": 0.85 },
+        { "id": "panRight", "centerX": 0.58, "centerY": 0.34, "imageZoom": 0.85 },
+        { "id": "panDown",  "centerX": 0.58, "centerY": 0.62, "imageZoom": 0.85 },
+        { "id": "jump",     "centerX": 0.82, "centerY": 0.22, "imageZoom": 1.00 },
+        { "id": "home",     "centerX": 0.50, "centerY": 0.50, "imageZoom": 0.08 }
+      ],
+      "stepTimeoutMs": 12000,
+      "settleMs": 250
+    },
+    {
+      "id": "volume",
+      "kind": "dzi-series",
+      "labelKey": "workload.volume.label",
+      "descriptionKey": "workload.volume.description",
+      "profiles": ["All"],
+      "steps": [
+        { "id": "overview", "centerX": 0.50, "centerY": 0.50, "imageZoom": 0.08 },
+        { "id": "high",     "centerX": 0.48, "centerY": 0.46, "imageZoom": 0.85 },
+        { "id": "pan",      "centerX": 0.66, "centerY": 0.54, "imageZoom": 0.85 }
+      ],
+      "stepTimeoutMs": 12000,
+      "settleMs": 250
+    }
+  ]
+}

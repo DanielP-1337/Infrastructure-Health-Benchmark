@@ -1,0 +1,13 @@
+.local/
+dist/
+__pycache__/
+*.pyc
+ReferenceDataset/*
+!ReferenceDataset/README.txt
+!ReferenceDataset/xy-mosaic.dzi.example.xml
+*.pfx
+*.p12
+*.pem
+*.key
+*.log
+Web/vendor/openseadragon/6.1.0/openseadragon.min.js
